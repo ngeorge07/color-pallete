@@ -52,6 +52,13 @@ const modesAvailable = {
       allInfoBoxes[i].querySelector(".box-rgb").innerHTML = `RGB: ${
         hslToRgb(h + x, s, l).r
       }, ${hslToRgb(h + x, s, l).g}, ${hslToRgb(h + x, s, l).b}`;
+
+      allInfoBoxes[i].querySelector(".box-hex").innerHTML = `HEX: ${rgbToHex(
+        hslToRgb(h + x, s, l).r,
+        hslToRgb(h + x, s, l).g,
+        hslToRgb(h + x, s, l).b
+      )}`;
+
       x += 25;
     }
   },
@@ -183,4 +190,10 @@ function hslToRgb(h, s, l) {
 
   const rgbObj = { r, g, b };
   return rgbObj;
+}
+
+function rgbToHex(r, g, b) {
+  const hexCode = `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
+
+  return hexCode;
 }
