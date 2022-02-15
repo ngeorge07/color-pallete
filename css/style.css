@@ -4,4 +4,71 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+
+header {
+  margin-top: 2rem;
+}
+
+header h1 {
+  text-align: center;
+}
+
+main {
+  max-width: 85%;
+  margin: 2rem auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 3rem;
+}
+
+#inputs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: center;
+      align-self: center;
+  gap: 2rem;
+}
+
+#color-mode {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+input[type="color"] {
+  display: none;
+}
+
+span {
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  background-color: black;
+  display: inline-block;
+}
+
+#info {
+  display: -ms-grid;
+  display: grid;
+  grid-gap: 1rem;
+  -ms-grid-columns: (minmax(150px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  justify-items: center;
+}
+
+.info-box ul {
+  margin-top: 1rem;
+}
+
+.box {
+  width: 10rem;
+  height: 10rem;
+  background-color: hotpink;
+}
 /*# sourceMappingURL=style.css.map */

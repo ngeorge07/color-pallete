@@ -8,9 +8,62 @@
     <title>Document</title>
   </head>
   <body>
-    <header></header>
+    <header>
+      <h1>Color Palette Designer</h1>
+    </header>
 
-    <main></main>
+    <main>
+      <section id="inputs">
+        <select id="color-mode">
+          <option value="ana">Analogous</option>
+          <option value="mono">Monochromatic</option>
+          <option value="triad">Triad</option>
+          <option value="comp">Complementary</option>
+          <option value="compound">Compound</option>
+          <option value="shades">Shades</option>
+        </select>
+        <span id="color-front"></span>
+        <input id="color-input" type="color" autocomplete="off" />
+      </section>
+
+      <section id="info">
+        <div class="info-box">
+          <div id="box1" class="box"></div>
+          <ul>
+            <li>HEX:</li>
+            <li>RGB:</li>
+            <li>HSL:</li>
+          </ul>
+        </div>
+
+        <div class="info-box">
+          <div id="box2" class="box"></div>
+          <ul>
+            <li>HEX:</li>
+            <li>RGB:</li>
+            <li>HSL:</li>
+          </ul>
+        </div>
+
+        <div class="info-box">
+          <div id="box3" class="box"></div>
+          <ul>
+            <li>HEX:</li>
+            <li>RGB:</li>
+            <li>HSL:</li>
+          </ul>
+        </div>
+
+        <div class="info-box">
+          <div id="box4" class="box"></div>
+          <ul>
+            <li>HEX:</li>
+            <li>RGB:</li>
+            <li>HSL:</li>
+          </ul>
+        </div>
+      </section>
+    </main>
 
     <footer></footer>
 
