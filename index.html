@@ -14,7 +14,7 @@
 
     <main>
       <section id="inputs">
-        <select id="color-mode">
+        <select id="color-mode" autocomplete="off">
           <option value="ana">Analogous</option>
           <option value="mono">Monochromatic</option>
           <option value="triad">Triad</option>
@@ -25,9 +25,9 @@
         <span id="color-front"></span>
         <input id="color-input" type="color" autocomplete="off" />
         <ul>
-          <li>HEX: #ffffff</li>
-          <li>RGB: R: 255 G: 255 B: 255</li>
-          <li>HSL: H: 200% S: 100% L: 50%</li>
+          <li id="hex0">HEX: #000000</li>
+          <li id="rgb0">RGB: 0, 0, 0</li>
+          <li id="hsl0">HSL: 0°, 0%, 0%</li>
         </ul>
       </section>
 
@@ -36,8 +36,8 @@
           <div id="box1" class="box"></div>
           <ul>
             <li>HEX:</li>
-            <li>RGB:</li>
-            <li>HSL:</li>
+            <li class="box-rgb">RGB:</li>
+            <li class="box-hsl">HSL:</li>
           </ul>
         </div>
 
@@ -45,8 +45,8 @@
           <div id="box2" class="box"></div>
           <ul>
             <li>HEX:</li>
-            <li>RGB:</li>
-            <li>HSL:</li>
+            <li class="box-rgb">RGB:</li>
+            <li class="box-hsl">HSL:</li>
           </ul>
         </div>
 
@@ -54,8 +54,8 @@
           <div id="box3" class="box"></div>
           <ul>
             <li>HEX:</li>
-            <li>RGB:</li>
-            <li>HSL:</li>
+            <li class="box-rgb">RGB:</li>
+            <li class="box-hsl">HSL:</li>
           </ul>
         </div>
 
@@ -63,8 +63,8 @@
           <div id="box4" class="box"></div>
           <ul>
             <li>HEX:</li>
-            <li>RGB:</li>
-            <li>HSL:</li>
+            <li class="box-rgb">RGB:</li>
+            <li class="box-hsl">HSL:</li>
           </ul>
         </div>
       </section>
