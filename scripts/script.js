@@ -22,64 +22,7 @@ function getInitialColor() {
   return initialHexColor;
 }
 
-modePicker.addEventListener("change", () => {
-  const selectedOption = modePicker.options[modePicker.selectedIndex].value;
-
-  const initialR = hexToRgb(getInitialColor()).r;
-  const initialG = hexToRgb(getInitialColor()).g;
-  const initialB = hexToRgb(getInitialColor()).b;
-
-  const initialH = rgbToHsl(initialR, initialG, initialB).h;
-  const initialS = rgbToHsl(initialR, initialG, initialB).s;
-  const initialL = rgbToHsl(initialR, initialG, initialB).l;
-
-  const result = modesAvailable[selectedOption](initialH, initialS, initialL);
-});
-
-const modesAvailable = {
-  ana: function (h, s, l) {
-    let x = 25;
-
-    for (let i = 0; i < allInfoBoxes.length; i++) {
-      allInfoBoxes[i].querySelector(".box").style.backgroundColor = `hsl(${
-        h + x
-      }, ${s}%, ${l}%)`;
-
-      allInfoBoxes[i].querySelector(".box-hsl").innerHTML = `HSL: ${
-        h + x
-      }°, ${s}%, ${l}%`;
-
-      allInfoBoxes[i].querySelector(".box-rgb").innerHTML = `RGB: ${
-        hslToRgb(h + x, s, l).r
-      }, ${hslToRgb(h + x, s, l).g}, ${hslToRgb(h + x, s, l).b}`;
-
-      allInfoBoxes[i].querySelector(".box-hex").innerHTML = `HEX: ${rgbToHex(
-        hslToRgb(h + x, s, l).r,
-        hslToRgb(h + x, s, l).g,
-        hslToRgb(h + x, s, l).b
-      )}`;
-
-      x += 25;
-    }
-  },
-  mono: function (initialColor) {
-    // document.querySelector("#box1").style.backgroundColor = initialColor;
-  },
-  triad: function (a) {
-    return `a+ 3`;
-  },
-  comp: function (a) {
-    return `a+4`;
-  },
-  compound: function (a) {
-    return `a+5`;
-  },
-  shades: function (a) {
-    return `a+5`;
-  },
-};
-
-colorPicker.addEventListener("change", () => {
+function getColorClicked() {
   const r = hexToRgb(getInitialColor()).r;
   const g = hexToRgb(getInitialColor()).g;
   const b = hexToRgb(getInitialColor()).b;
@@ -90,10 +33,215 @@ colorPicker.addEventListener("change", () => {
 
   document.querySelector("#hex0").innerHTML = `HEX: ${getInitialColor()}`;
   document.querySelector("#rgb0").innerHTML = `RGB: ${r}, ${g}, ${b}`;
-  document.querySelector("#hsl0").innerHTML = `HSL: ${h}°, ${s}%, ${l}%`;
+  document.querySelector("#hsl0").innerHTML = `HSL: ${Math.round(
+    h
+  )}°, ${Math.round(s)}%, ${Math.round(l)}%`;
 
-  document.querySelector("#box1").style.backgroundColor = getInitialColor();
-});
+  const selectedOption = modePicker.options[modePicker.selectedIndex].value;
+  modesAvailable[selectedOption](h, s, l);
+}
+
+function showStuff() {}
+
+modePicker.addEventListener("change", getColorClicked);
+
+function showNewColors(h, s, l, changeH, changeS, changeL) {
+  if (h + changeH >= 360) {
+    h = 0 + (h + changeH - 360);
+  }
+
+  if (h + changeH * 2 >= 360) {
+    h = 0 + (h + changeH * 2 - 360);
+  }
+
+  if (l - changeL * 6 < 0) {
+    l = 100;
+  }
+
+  if (s - changeS < 0) {
+    s = 100;
+  }
+  allInfoBoxes[0].querySelector(".box").style.backgroundColor =
+    showInfoHexRgbHsl(
+      h,
+      s,
+      l,
+      -changeH * 2,
+      changeS * 1.2,
+      -changeL * 1.2
+    ).backColor;
+
+  allInfoBoxes[1].querySelector(".box").style.backgroundColor =
+    showInfoHexRgbHsl(h, s, l, -changeH, changeS, -changeL * 2.7).backColor;
+
+  allInfoBoxes[2].querySelector(".box").style.backgroundColor =
+    showInfoHexRgbHsl(h, s, l, changeH, changeS, changeL * 4.5).backColor;
+
+  allInfoBoxes[3].querySelector(".box").style.backgroundColor =
+    showInfoHexRgbHsl(h, s, l, changeH * 2, changeS, changeL * 6).backColor;
+
+  allInfoBoxes[0].querySelector(".box-hsl").innerHTML = showInfoHexRgbHsl(
+    h,
+    s,
+    l,
+    -changeH * 2,
+    changeS * 1.2,
+    -changeL * 1.2
+  ).hsl;
+
+  allInfoBoxes[0].querySelector(".box-rgb").innerHTML = showInfoHexRgbHsl(
+    h,
+    s,
+    l,
+    -changeH * 2,
+    changeS * 1.2,
+    -changeL * 1.2
+  ).rgb;
+
+  allInfoBoxes[0].querySelector(".box-hex").innerHTML = showInfoHexRgbHsl(
+    h,
+    s,
+    l,
+    -changeH * 2,
+    changeS * 1.2,
+    -changeL * 1.2
+  ).hex;
+
+  allInfoBoxes[1].querySelector(".box-hsl").innerHTML = showInfoHexRgbHsl(
+    h,
+    s,
+    l,
+    -changeH,
+    changeS,
+    -changeL * 2.7
+  ).hsl;
+
+  allInfoBoxes[1].querySelector(".box-rgb").innerHTML = showInfoHexRgbHsl(
+    h,
+    s,
+    l,
+    -changeH,
+    changeS,
+    -changeL * 2.7
+  ).rgb;
+
+  allInfoBoxes[1].querySelector(".box-hex").innerHTML = showInfoHexRgbHsl(
+    h,
+    s,
+    l,
+    -changeH,
+    changeS,
+    -changeL * 2.7
+  ).hex;
+
+  if (h - changeH < 0) {
+    h = 360;
+  }
+
+  allInfoBoxes[2].querySelector(".box-hsl").innerHTML = showInfoHexRgbHsl(
+    h,
+    s,
+    l,
+    changeH,
+    changeS,
+    changeL * 4.5
+  ).hsl;
+
+  allInfoBoxes[2].querySelector(".box-rgb").innerHTML = showInfoHexRgbHsl(
+    h,
+    s,
+    l,
+    changeH,
+    changeS,
+    changeL * 4.5
+  ).rgb;
+
+  allInfoBoxes[2].querySelector(".box-hex").innerHTML = showInfoHexRgbHsl(
+    h,
+    s,
+    l,
+    changeH,
+    changeS,
+    changeL * 4.5
+  ).hex;
+
+  allInfoBoxes[3].querySelector(".box-hsl").innerHTML = showInfoHexRgbHsl(
+    h,
+    s,
+    l,
+    changeH * 2,
+    changeS,
+    changeL * 6
+  ).hsl;
+
+  allInfoBoxes[3].querySelector(".box-rgb").innerHTML = showInfoHexRgbHsl(
+    h,
+    s,
+    l,
+    changeH * 2,
+    changeS,
+    changeL * 6
+  ).rgb;
+
+  allInfoBoxes[3].querySelector(".box-hex").innerHTML = showInfoHexRgbHsl(
+    h,
+    s,
+    l,
+    changeH * 2,
+    changeS,
+    changeL * 6
+  ).hex;
+}
+
+function showInfoHexRgbHsl(h, s, l, changeH, changeS, changeL) {
+  const changedH = h - changeH;
+  const changedS = s - changeS;
+  const changedL = l - changeL;
+
+  const hexRgbHsl = {
+    hex: `HEX: ${rgbToHex(
+      hslToRgb(changedH, changedS, changedL).r,
+      hslToRgb(changedH, changedS, changedL).g,
+      hslToRgb(changedH, changedS, changedL).b
+    )}`,
+
+    rgb: `RGB: ${hslToRgb(changedH, changedS, changedL).r}, ${
+      hslToRgb(changedH, changedS, changedL).g
+    }, ${hslToRgb(changedH, changedS, changedL).b}`,
+
+    hsl: `HSL: ${Math.round(changedH)}°, ${Math.round(changedS)}%, ${Math.round(
+      changedL
+    )}%`,
+
+    backColor: `hsl(${Math.round(changedH)}, ${Math.round(
+      changedS
+    )}%, ${Math.round(changedL)}%)`,
+  };
+  return hexRgbHsl;
+}
+
+const modesAvailable = {
+  ana: function (h, s, l) {
+    showNewColors(h, s, l, 10, 0, 0);
+  },
+  mono: function (h, s, l) {
+    showNewColors(h, s, l, 0, 46, 5);
+  },
+  triad: function (h, s, l) {
+    showNewColors(h, s, l, 90, 0, 0);
+  },
+  comp: function (h, s, l) {
+    showNewColors(h, s, l, 45, 0, 0);
+  },
+  compound: function (h, s, l) {
+    showNewColors(h, s, l, 90, 50, 1);
+  },
+  shades: function (h, s, l) {
+    showNewColors(h, s, l, 0, 0, 5);
+  },
+};
+
+colorPicker.addEventListener("change", getColorClicked);
 
 function hexToRgb(hex) {
   const r = parseInt(hex.substring(1, 3), 16);
@@ -192,8 +340,13 @@ function hslToRgb(h, s, l) {
   return rgbObj;
 }
 
-function rgbToHex(r, g, b) {
-  const hexCode = `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
-
-  return hexCode;
+function componentToHex(c) {
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
 }
+
+function rgbToHex(r, g, b) {
+  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+console.log(hslToRgb(350, 100, 25.1));
